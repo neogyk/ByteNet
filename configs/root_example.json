@@ -1,0 +1,50 @@
+{
+  "model": {
+    "max_seq_length": 1024,
+    "embed_dim": 64,
+    "hidden_dim": 256,
+    "n_steps": 6,
+    "n_d": 128,
+    "n_a": 128,
+    "gamma": 1.5,
+    "n_shared": 2,
+    "n_step": 2,
+    "virtual_batch_size": 128,
+    "pooling": "attention",
+    "use_positional": true,
+    "vocab_size": 320
+  },
+  "training": {
+    "task_type": "classification",
+    "learning_rate": 0.0005,
+    "weight_decay": 0.01,
+    "batch_size": 64,
+    "num_epochs": 50,
+    "optimizer": "adamw",
+    "sparsity_weight": 0.001,
+    "label_smoothing": 0.0,
+    "gradient_clip": 1.0,
+    "lr_schedule": "warmup_cosine",
+    "warmup_steps": 500,
+    "min_lr": 1e-06,
+    "patience": 10,
+    "min_delta": 0.0001,
+    "save_every": 5,
+    "checkpoint_dir": "./checkpoints/root_classification",
+    "keep_best_k": 3,
+    "log_every": 10,
+    "eval_every": 100,
+    "train_split": 0.8,
+    "val_split": 0.1,
+    "test_split": 0.1,
+    "shuffle_seed": 42
+  },
+  "data": {
+    "data_path": "data/experiment.root",
+    "data_format": "root",
+    "root_tree_name": "Events",
+    "root_branches": ["jet_pt", "jet_eta", "jet_phi", "met", "lepton_pt"],
+    "label_column": "event_class",
+    "num_classes": 3
+  }
+}

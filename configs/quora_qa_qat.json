@@ -1,0 +1,62 @@
+{
+  "model": {
+    "max_seq_length": 2048,
+    "embed_dim": 64,
+    "hidden_dim": 1024,
+    "n_steps": 5,
+    "n_d": 64,
+    "n_a": 64,
+    "gamma": 1.5,
+    "n_shared": 2,
+    "n_step": 5,
+    "virtual_batch_size": 128,
+    "use_positional": true,
+    "vocab_size": 320,
+    "n_decoder_layers": 6,
+    "max_target_length": 1024
+  },
+  "training": {
+    "task_type": "generation",
+    "learning_rate": 5e-4,
+    "weight_decay": 0.01,
+    "batch_size": 8,
+    "num_epochs": 50,
+    "optimizer": "adamw",
+    "sparsity_weight": 1e-3,
+    "label_smoothing": 0.1,
+    "kl_weight": 0.0,
+    "gradient_clip": 1.0,
+    "lr_schedule": "warmup_cosine",
+    "warmup_steps": 500,
+    "min_lr": 1e-6,
+    "patience": 10,
+    "min_delta": 1e-4,
+    "save_every": 5,
+    "checkpoint_dir": "./checkpoints/quora_qa_generation",
+    "keep_best_k": 3,
+    "log_every": 10,
+    "eval_every": 100,
+    "train_split": 0.8,
+    "val_split": 0.1,
+    "test_split": 0.1,
+    "shuffle_seed": 42
+  },
+  "data": {
+    "data_format": "huggingface",
+    "hf_dataset_name": "toughdata/quora-question-answer-dataset",
+    "hf_split_train": "train",
+    "hf_split_test": "test",
+    "text_column": "question",
+    "target_column": "answer",
+    "max_target_length": 1024
+  },
+  "quantization": {
+    "enabled": true,
+    "pretrained_checkpoint": "./checkpoints/quora_qa_generation/best_model.pt",
+    "qat_epochs": 5,
+    "qat_learning_rate": 1e-5,
+    "backend": "fbgemm",
+    "convert_to_quantized": true,
+    "quantized_model_path": "./checkpoints/quora_qa_generation/quantized_model.pt"
+  }
+}
